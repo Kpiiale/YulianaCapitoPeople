@@ -36,7 +36,7 @@ public class PersonRepository
                 throw new Exception("Valid name required");
 
             // TODO: Insert the new person into the database
-            result = connYC.Insert(new Person { NameYC = name});
+            result = connYC.Insert(new Person { Name = name});
 
             StatusMessage = string.Format("{0} record(s) added (Name: {1})", result, name);
         }
