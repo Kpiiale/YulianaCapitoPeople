@@ -2,33 +2,42 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:People.Models"
+             xmlns:vm="clr-namespace:People.ViewModel"
              x:Class="People.MainPage" 
              BackgroundColor="{DynamicResource Light}">
+
+    <ContentPage.BindingContext>
+        <vm:MainPageViewModel />
+    </ContentPage.BindingContext>
 
     <Grid Padding="5" RowSpacing="5" ColumnSpacing="5"
           RowDefinitions="Auto,Auto,Auto,Auto,*">
 
         <Entry x:Name="newPerson"
-           Placeholder="Enter name" />
+               Placeholder="Enter name"
+               Text="{Binding NewPerson}" />
 
         <Button Text="Add Person"
-            Grid.Row="1"
-            Clicked="OnNewButtonClicked" />
+                Grid.Row="1"
+                Command="{Binding AddPersonCommand}" />
 
         <Label x:Name="statusMessage"
-           TextColor="{StaticResource Primary}"
-           Grid.Row="2" />
+               TextColor="{StaticResource Primary}"
+               Grid.Row="2"
+               Text="{Binding StatusMessage}" />
 
         <Button Text="Get All People"
-            Grid.Row="3"
-            Clicked="OnGetButtonClicked" />
+                Grid.Row="3"
+                Command="{Binding GetPeopleCommand}" />
 
-        <CollectionView x:Name="peopleList" Grid.Row="4">
+        <CollectionView x:Name="peopleList" 
+                        Grid.Row="4" 
+                        ItemsSource="{Binding People}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Person">
                     <Grid ColumnDefinitions="*,2*">
                         <Label Text="{Binding Id}" TextColor="{StaticResource Primary}"/>
-                        <Label Grid.Column="1" Text="{Binding Name}" TextColor= "{StaticResource Primary}"/>
+                        <Label Grid.Column="1" Text="{Binding Name}" TextColor="{StaticResource Primary}"/>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
