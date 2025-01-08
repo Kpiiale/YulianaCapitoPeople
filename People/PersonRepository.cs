@@ -1,4 +1,4 @@
-﻿using SQLite; 
+﻿using SQLite;
 using People.Models;
 
 namespace People;
@@ -16,27 +16,27 @@ public class PersonRepository
         if (connYC != null)
             return;
         connYC = new SQLiteAsyncConnection(_dbPath);
-       await connYC.CreateTableAsync<Person>();
+        await connYC.CreateTableAsync<Person>();
     }
 
     public PersonRepository(string dbPath)
     {
-        _dbPath = dbPath;                        
+        _dbPath = dbPath;
     }
 
     public async Task AddNewPerson(string name)
-    {            
+    {
         int result = 0;
         try
         {
-            await Init(); 
+            await Init();
 
             // basic validation to ensure a name was entered
             if (string.IsNullOrEmpty(name))
                 throw new Exception("Valid name required");
 
             // TODO: Insert the new person into the database
-            result = await connYC.InsertAsync(new Person { Name = name});
+            result = await connYC.InsertAsync(new Person { Name = name });
 
             StatusMessage = string.Format("{0} record(s) added (Name: {1})", result, name);
         }
@@ -52,7 +52,7 @@ public class PersonRepository
         // TODO: Init then retrieve a list of Person objects from the database into a list
         try
         {
-            await Init ();
+            await Init();
             return await connYC.Table<Person>().ToListAsync();
         }
         catch (Exception ex)

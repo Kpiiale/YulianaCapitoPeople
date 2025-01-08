@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using People.Models;
 
-namespace People.ViewModel
+namespace People.ViewModels
 {
     public class MainPageViewModels : BindableObject
     {
