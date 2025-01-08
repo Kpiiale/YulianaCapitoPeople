@@ -9,14 +9,14 @@ public class PersonRepository
 
     public string StatusMessage { get; set; }
 
-    private SQLiteConnection connYC;
+    private SQLiteAsyncConnection connYC;
 
-    private void Init()
+    private async Task Init()
     {
         if (connYC != null)
             return;
-        connYC = new SQLiteConnection(_dbPath);
-        connYC.CreateTable<Person>();
+        connYC = new SQLiteAsyncConnection(_dbPath);
+       await connYC.CreateTableAsync<Person>();
     }
 
     public PersonRepository(string dbPath)
@@ -24,19 +24,19 @@ public class PersonRepository
         _dbPath = dbPath;                        
     }
 
-    public void AddNewPerson(string name)
+    public async Task AddNewPerson(string name)
     {            
         int result = 0;
         try
         {
-            Init(); 
+            await Init(); 
 
             // basic validation to ensure a name was entered
             if (string.IsNullOrEmpty(name))
                 throw new Exception("Valid name required");
 
             // TODO: Insert the new person into the database
-            result = connYC.Insert(new Person { Name = name});
+            result = await connYC.InsertAsync(new Person { Name = name});
 
             StatusMessage = string.Format("{0} record(s) added (Name: {1})", result, name);
         }
@@ -47,13 +47,13 @@ public class PersonRepository
 
     }
 
-    public List<Person> GetAllPeople()
+    public async Task<List<Person>> GetAllPeople()
     {
         // TODO: Init then retrieve a list of Person objects from the database into a list
         try
         {
-            Init ();
-            return connYC.Table<Person>().ToList();
+            await Init ();
+            return await connYC.Table<Person>().ToListAsync();
         }
         catch (Exception ex)
         {
