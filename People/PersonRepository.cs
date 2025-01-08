@@ -62,4 +62,19 @@ public class PersonRepository
 
         return new List<Person>();
     }
+    public async Task DeletePerson(Person person)
+    {
+        try
+        {
+            await Init();
+            if (person == null)
+                throw new Exception("Ingresar persona válida");
+            int result = await connYC.DeleteAsync(person);
+            StatusMessage = string.Format("{0} record(s) deleted (ID: {1})", result, person.Id);
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = string.Format("No se pudo borrar", ex.Message);
+        }
+    }
 }
