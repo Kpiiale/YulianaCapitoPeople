@@ -23,7 +23,8 @@
 
                 <Button Text="Add Person"
                     Grid.Row="1"
-                    Command="{Binding AddPersonCommand}" />
+                    Command="{Binding AddPersonCommand}" 
+                    x:Name="YC_Button1"/>
 
                 <Label x:Name="statusMessage"
                    TextColor="{StaticResource Primary}"
@@ -32,7 +33,8 @@
 
                 <Button Text="Get All People"
                     Grid.Row="3"
-                    Command="{Binding GetPeopleCommand}" />
+                    Command="{Binding GetPeopleCommand}" 
+                        x:Name="YC_Button2"/>
 
                 <CollectionView x:Name="peopleList" 
                             Grid.Row="4" 
@@ -67,7 +69,10 @@
                     </StackLayout>
                 </StackLayout>
             </Border>
-            
+            <Button Text="Video"
+                    Grid.Row="3"
+                    Command="{Binding AbrirLink}" 
+                    x:Name="YC_Button3"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>
