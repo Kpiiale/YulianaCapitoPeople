@@ -52,7 +52,8 @@ public class PersonRepository
         // TODO: Init then retrieve a list of Person objects from the database into a list
         try
         {
-            
+            Init ();
+            return connYC.Table<Person>().ToList();
         }
         catch (Exception ex)
         {
